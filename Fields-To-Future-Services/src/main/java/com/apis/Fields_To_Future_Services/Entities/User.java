@@ -1,0 +1,127 @@
+package com.apis.Fields_To_Future_Services.Entities;
+
+import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+
+@Entity
+@Table(name = "user")
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer userid;
+    private String name;
+    private String email;
+    private String password;
+    private String phone;
+    private Date createdat;
+    
+    @OneToMany(mappedBy = "groupcreatedby")
+    @JsonManagedReference
+    private List<GroupDetail> groupsCreatedByUser;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("user-member")
+    private List<GroupMember> groupMemberships;
+
+    @OneToMany(mappedBy = "loanborrowedby")
+    private List<Loan> loansBorrowedByUser;
+
+    public List<Loan> getLoansBorrowedByUser() {
+        return loansBorrowedByUser;
+    }
+
+    public void setLoansBorrowedByUser(List<Loan> loansBorrowedByUser) {
+        this.loansBorrowedByUser = loansBorrowedByUser;
+    }
+
+    public User() {
+    }
+
+    public User(Date createdat, String email, List<GroupDetail> groupsCreatedByUser, String name, String password, String phone, Integer userid) {
+        this.createdat = createdat;
+        this.email = email;
+        this.groupsCreatedByUser = groupsCreatedByUser;
+        this.name = name;
+        this.password = password;
+        this.phone = phone;
+        this.userid = userid;
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Date getCreatedat() {
+        return createdat;
+    }
+
+    public void setCreatedat(Date createdat) {
+        this.createdat = createdat;
+    }
+
+    public List<GroupDetail> getGroupsCreatedByUser() {
+        return groupsCreatedByUser;
+    }
+
+    public void setGroupsCreatedByUser(List<GroupDetail> groupsCreatedByUser) {
+        this.groupsCreatedByUser = groupsCreatedByUser;
+    }
+
+    public List<GroupMember> getGroupMemberships() {
+        return groupMemberships;
+    }
+
+    public void setGroupMemberships(List<GroupMember> groupMemberships) {
+        this.groupMemberships = groupMemberships;
+    }
+
+    
+}
