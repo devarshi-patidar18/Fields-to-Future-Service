@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import com.apis.Fields_To_Future_Services.DTOs.UserDto;
+import com.apis.Fields_To_Future_Services.DTOs.UserInfoDetails;
 import com.apis.Fields_To_Future_Services.Entities.GroupDetail;
 import com.apis.Fields_To_Future_Services.Entities.GroupMember;
 import com.apis.Fields_To_Future_Services.Entities.User;
@@ -15,7 +18,7 @@ import com.apis.Fields_To_Future_Services.Repositories.UserRepo;
 import com.apis.Fields_To_Future_Services.Utilities.Utility;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserRepo userRepository;
@@ -77,6 +80,21 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
         return "User created successfully";
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String contact) {
+        // Implement the logic to load user details by contact
+        // This could involve fetching user details from a database or any other source
+        // For now, we can throw an exception or return null if not implemented
+        User user = userRepository.findByPhone(contact);
+        if(user != null){
+            return new UserInfoDetails(user.getPhone(), user.getPassword(), user);
+        }
+        else{
+            throw new RuntimeException("User not found with contact: " + contact);
+        }
+
     }
 
 }

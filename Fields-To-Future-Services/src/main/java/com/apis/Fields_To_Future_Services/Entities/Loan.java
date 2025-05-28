@@ -11,11 +11,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "loan")   
+@Table(name = "loan")
 public class Loan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long loanId;
+    private Integer loanId;
 
     @ManyToOne
     @JoinColumn(name = "groupid", referencedColumnName = "groupid")
@@ -30,7 +30,11 @@ public class Loan {
     private Integer tenureMonths;
     private String status;
     private Integer latePayments;
-    private Long issuedBy;
+
+    @ManyToOne
+    @JoinColumn(name = "issuedby", referencedColumnName = "userid")
+    private User issuedby;
+
     private Date issuedAt;
     private Double emi;
     private Integer remainingEmis;
@@ -47,8 +51,8 @@ public class Loan {
     public Loan(String checkStatus) {
         this.checkStatus = checkStatus;
     }
-    public Loan(Long loanId, GroupDetail group, User loanborrowedby, Double amount, Double interestRate,
-            Integer tenureMonths, String status, Integer latePayments, Long issuedBy, Date issuedAt, Double emi,
+    public Loan(Integer loanId, GroupDetail group, User loanborrowedby, Double amount, Double interestRate,
+            Integer tenureMonths, String status, Integer latePayments, User issuedby, Date issuedAt, Double emi,
             Integer remainingEmis, User guarantor1, User guarantor2, String checkStatus, Boolean active) {
         this.loanId = loanId;
         this.group = group;
@@ -58,7 +62,7 @@ public class Loan {
         this.tenureMonths = tenureMonths;
         this.status = status;
         this.latePayments = latePayments;
-        this.issuedBy = issuedBy;
+        this.issuedby = issuedby;
         this.issuedAt = issuedAt;
         this.emi = emi;
         this.remainingEmis = remainingEmis;
@@ -68,10 +72,10 @@ public class Loan {
         this.active = active;
     }
     private Boolean active;
-    public Long getLoanId() {
+    public Integer getLoanId() {
         return loanId;
     }
-    public void setLoanId(Long loanId) {
+    public void setLoanId(Integer loanId) {
         this.loanId = loanId;
     }
     public GroupDetail getGroup() {
@@ -116,11 +120,11 @@ public class Loan {
     public void setLatePayments(Integer latePayments) {
         this.latePayments = latePayments;
     }
-    public Long getIssuedBy() {
-        return issuedBy;
+    public User getIssuedby() {
+        return issuedby;
     }
-    public void setIssuedBy(Long issuedBy) {
-        this.issuedBy = issuedBy;
+    public void setIssuedby(User issuedby) {
+        this.issuedby = issuedby;
     }
     public Date getIssuedAt() {
         return issuedAt;
@@ -163,6 +167,8 @@ public class Loan {
     }
     public void setActive(Boolean active) {
         this.active = active;
+    }
+    public Loan() {
     }
 
     // Getters and Setters

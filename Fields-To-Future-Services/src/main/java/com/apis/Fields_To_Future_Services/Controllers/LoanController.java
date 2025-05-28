@@ -9,16 +9,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.apis.Fields_To_Future_Services.Entities.Loan;
 import com.apis.Fields_To_Future_Services.Services.LoanService;
+import com.apis.Fields_To_Future_Services.DTOs.LoanDto;
 
 @RestController
-@RequestMapping("/loans")
+@RequestMapping("/loan")
 public class LoanController {
     
     @Autowired
     private LoanService loanService;
 
     @PostMapping("/create")
-    public String createLoan(@RequestBody Loan loan, @RequestHeader Long groupId, @RequestHeader Integer borrowerId, @RequestHeader Long guarantor1Id, @RequestHeader Long guarantor2Id) {
-        return loanService.createLoan(loan, groupId, borrowerId, guarantor1Id, guarantor2Id);
+    public String createLoan(@RequestBody LoanDto loanDto) {
+        return loanService.createLoan(loanDto);
     }
 }

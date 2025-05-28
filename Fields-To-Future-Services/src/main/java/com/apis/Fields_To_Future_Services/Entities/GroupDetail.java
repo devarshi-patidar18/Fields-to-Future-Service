@@ -45,10 +45,17 @@ public class GroupDetail {
     private String groupstatus;
     private String grouptype;
     private boolean isactive;
-    private float totalcontribution;
-    private float totalcurrentfundbalance;
-    private float totalfundofgroup;
-    private float totalpenaltychargescollected;
+
+    /** Total Contributions made by Group Members */
+    private double totalcontribution;
+
+    /** Total Current Fund Balance of the Group  */
+    private double totalcurrentfundbalance;
+
+    /** Total Fund of the Group includes all contributions, loans, Interest and penalties */
+    private double totalfundofgroup;
+
+    private double totalpenaltychargescollected;
 
 
     public String getFunddistributedinloans() {
@@ -87,28 +94,28 @@ public class GroupDetail {
     public void setIsactive(boolean isactive) {
         this.isactive = isactive;
     }
-    public float getTotalcontribution() {
+    public double getTotalcontribution() {
         return totalcontribution;
     }
-    public void setTotalcontribution(float totalcontribution) {
+    public void setTotalcontribution(double totalcontribution) {
         this.totalcontribution = totalcontribution;
     }
-    public float getTotalcurrentfundbalance() {
+    public double getTotalcurrentfundbalance() {
         return totalcurrentfundbalance;
     }
-    public void setTotalcurrentfundbalance(float totalcurrentfundbalance) {
+    public void setTotalcurrentfundbalance(double totalcurrentfundbalance) {
         this.totalcurrentfundbalance = totalcurrentfundbalance;
     }
-    public float getTotalfundofgroup() {
+    public double getTotalfundofgroup() {
         return totalfundofgroup;
     }
-    public void setTotalfundofgroup(float totalfundofgroup) {
+    public void setTotalfundofgroup(double totalfundofgroup) {
         this.totalfundofgroup = totalfundofgroup;
     }
-    public float getTotalpenaltychargescollected() {
+    public double getTotalpenaltychargescollected() {
         return totalpenaltychargescollected;
     }
-    public void setTotalpenaltychargescollected(float totalpenaltychargescollected) {
+    public void setTotalpenaltychargescollected(double totalpenaltychargescollected) {
         this.totalpenaltychargescollected = totalpenaltychargescollected;
     }
     public GroupDetail() {
@@ -143,8 +150,8 @@ public class GroupDetail {
     }
     public GroupDetail(Integer groupid, String groupname, User groupcreatedby, List<GroupMember> members,
             String funddistributedinloans, String groupaddress, String groupdescription, String groupstatus,
-            String grouptype, boolean isactive, float totalcontribution, float totalcurrentfundbalance,
-            float totalfundofgroup, float totalpenaltychargescollected) {
+            String grouptype, boolean isactive, double totalcontribution, double totalcurrentfundbalance,
+            double totalfundofgroup, double totalpenaltychargescollected) {
         this.groupid = groupid;
         this.groupname = groupname;
         this.groupcreatedby = groupcreatedby;

@@ -1,9 +1,17 @@
 package com.apis.Fields_To_Future_Services.Entities;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "roles")
+/**
+ * This class represents the Role entity in the database.
+ * It contains fields for role ID, role name, role description, and creation date.
+ */
 public class Role {
 
     @Id

@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -26,7 +27,17 @@ public class User {
     private String password;
     private String phone;
     private Date createdat;
+
+    @OneToMany
+    @JoinColumn(name = "roleid", referencedColumnName = "roleid")
+    private List<Role> roles;
     
+    public List<Role> getRoles() {
+        return roles;
+    }
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
     @OneToMany(mappedBy = "groupcreatedby")
     @JsonManagedReference
     private List<GroupDetail> groupsCreatedByUser;
@@ -49,16 +60,22 @@ public class User {
     public User() {
     }
 
-    public User(Date createdat, String email, List<GroupDetail> groupsCreatedByUser, String name, String password, String phone, Integer userid) {
-        this.createdat = createdat;
-        this.email = email;
-        this.groupsCreatedByUser = groupsCreatedByUser;
+    
+
+    public User(Integer userid, String name, String email, String password, String phone, Date createdat,
+            List<Role> roles, List<GroupDetail> groupsCreatedByUser, List<GroupMember> groupMemberships,
+            List<Loan> loansBorrowedByUser) {
+        this.userid = userid;
         this.name = name;
+        this.email = email;
         this.password = password;
         this.phone = phone;
-        this.userid = userid;
+        this.createdat = createdat;
+        this.roles = roles;
+        this.groupsCreatedByUser = groupsCreatedByUser;
+        this.groupMemberships = groupMemberships;
+        this.loansBorrowedByUser = loansBorrowedByUser;
     }
-
     public Integer getUserid() {
         return userid;
     }

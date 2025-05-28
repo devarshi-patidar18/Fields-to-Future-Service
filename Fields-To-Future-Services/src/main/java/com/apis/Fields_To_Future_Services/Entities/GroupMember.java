@@ -19,7 +19,17 @@ public class GroupMember {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
+
+    private String membernumber;
+
+    public String getMembernumber() {
+        return membernumber;
+    }
+
+    public void setMemberNumber(String membernumber) {
+        this.membernumber = membernumber;
+    }
 
     @ManyToOne
     @JoinColumn(name = "userid")
@@ -64,7 +74,7 @@ public class GroupMember {
     public GroupMember() {
     }
 
-    public GroupMember(Boolean active, GroupDetail groupdetail, Long id, LocalDate joinedAt, String memberaddress, String membercontact, String membername, String role, Double totalcontribution, Double totalshareingroup, User user) {
+    public GroupMember(Boolean active, GroupDetail groupdetail, Integer id, LocalDate joinedAt, String memberaddress, String membercontact, String membername, String role, Double totalcontribution, Double totalshareingroup, User user) {
         this.active = active;
         this.groupdetail = groupdetail;
         this.id = id;
@@ -79,10 +89,10 @@ public class GroupMember {
     }
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public User getUser() {
@@ -101,7 +111,7 @@ public class GroupMember {
         return role;
     }
     public void setRole(String role) {
-        this.role = user.getUserid()==groupdetail.getGroupcreatedby().getUserid() ? "admin" : "member";
+        this.role = role;
     }
     public LocalDate getJoinedAt() {
         return joinedAt;
